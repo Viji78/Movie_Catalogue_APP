@@ -10,7 +10,7 @@ import {
 interface CustomButtonProps {
   title: string;
   onPress: () => void;
-  type?: "primary" | "secondary" | "danger"; // Different color types if needed
+  type?: "primary" | "secondary" | "danger";
   disabled?: boolean;
   style?: ViewStyle;
   textStyle?: TextStyle;

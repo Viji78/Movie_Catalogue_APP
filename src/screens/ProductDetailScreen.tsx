@@ -33,7 +33,7 @@ const ProductDetailScreen = ({ route, navigation }: any) => {
       productName: product.name,
       name: product.name,
       description: product.description,
-      price: product.price ?? 0, // fallback if price missing
+      price: product.price ?? 0,
       image: product.image ?? "",
       quantity: 1,
       barcodes: product.barcodes ?? [],
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginTop: 30,
-    backgroundColor: "#f8f9fa", // optional: match background
+    backgroundColor: "#f8f9fa",
   },
   title: { fontSize: 22, fontWeight: "bold", marginBottom: 8 },
   variantCard: {

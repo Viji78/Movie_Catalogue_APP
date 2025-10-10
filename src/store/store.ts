@@ -1,13 +1,12 @@
-// store.ts (Redux store)
 import { configureStore } from '@reduxjs/toolkit';
-import cartReducer from './cartSlice'; // only keep Redux slices if any
+import cartReducer from './cartSlice';
 import productReducer from './productSlice';
 
 
 const store = configureStore({
   reducer: {
     cart: cartReducer,
-    products: productReducer, // ✅ this must match your state path
+    products: productReducer,
   },
 });
 

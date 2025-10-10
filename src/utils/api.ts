@@ -1,7 +1,3 @@
-
-
-// src/utils/api.ts
-
 import axios from 'axios';
 import { Product, CartItem } from '../types';
 
@@ -14,12 +10,11 @@ export const fetchProducts = async () => {
     sort: { creationDateSortOption: "DESC" }
   });
 
-  // ✅ Return only the actual product array
     console.log("✅ API raw response:", JSON.stringify(response.data, null, 2));
   return response.data?.data?.data || [];
 };
 
-// 🔻 NEW: Helper to flatten all active variants from all products
+// Helper to flatten all active variants from all products
 export const getAllActiveVariants = (productList: any[]) => {
   const variants: any[] = [];
   productList.forEach((product: any) => {
@@ -40,13 +35,11 @@ export const getAllActiveVariants = (productList: any[]) => {
   return variants;
 };
 
-// 🔻 NEW: Main function used in scanner
+// Main function used in scanner
 export const getVariantByBarcode = async (barcode: string): Promise<CartItem | null> => {
   try {
     const response = await fetchProducts();
-
-    // Adjust this based on console log result:
-    const products = response.data?.content ?? []; // ✅ correct access
+    const products = response.data?.content ?? [];
 
     const allVariants = getAllActiveVariants(products);
 

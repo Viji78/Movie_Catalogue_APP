@@ -9,18 +9,22 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, clearCart } from "../store/cartSlice";
 import CartItem from "../components/CartItem";
-import CustomButton from "../components/CustomButton";
+import TopNavButtons from "@/components/TopNavButtons";
 
 const CartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: any) => state.cart.items);
 
-  const total = cartItems.reduce((sum: number, item: any) => sum + item.price * item.quantity, 0);
+  const total = cartItems.reduce(
+    (sum: number, item: any) => sum + item.price * item.quantity,
+    0
+  );
 
   const handleCheckout = () => {
-    alert(`Total: $${total.toFixed(2)}\nThank you for shopping!`);
+    alert(`Total: ₹${total.toFixed(2)}\nThank you for shopping!`);
     dispatch(clearCart());
-    navigation.goBack();
+    // navigation.goBack();
+    navigation.navigate("ProductListScreen");
   };
 
   const renderItem = ({ item }: { item: any }) => (
@@ -29,37 +33,42 @@ const CartScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>My Cart</Text>
-      {cartItems.length === 0 ? (
-        <Text style={styles.empty}>Your cart is empty.</Text>
-      ) : (
-        <>
-          <FlatList
-            data={cartItems}
-            keyExtractor={(item) => item.id}
-            renderItem={renderItem}
-            contentContainerStyle={styles.list}
-          />
-          <Text style={styles.total}>Total: ${total?.toFixed(2)}</Text>
-          <TouchableOpacity
-            style={styles.checkoutButton}
-            onPress={handleCheckout}
-          >
-            <Text style={styles.checkoutText}>Buy Now & Clear Cart</Text>
-          </TouchableOpacity>
-        </>
-      )}
-      <CustomButton
-        title="Back to Shoping List"
-        type="secondary"
-        onPress={() => navigation.navigate("ProductListScreen")}
-      />
+      <View style={styles.content}>
+        <Text style={styles.header}>My Cart</Text>
+        {cartItems.length === 0 ? (
+          <Text style={styles.empty}>Your cart is empty.</Text>
+        ) : (
+          <>
+            <FlatList
+              data={cartItems}
+              keyExtractor={(item) => item.id}
+              renderItem={renderItem}
+              contentContainerStyle={styles.list}
+            />
+            <Text style={styles.total}>Total: ₹{total?.toFixed(2)}</Text>
+            <TouchableOpacity
+              style={styles.checkoutButton}
+              onPress={handleCheckout}
+            >
+              <Text style={styles.checkoutText}>Buy Now & Clear Cart</Text>
+            </TouchableOpacity>
+          </>
+        )}
+      </View>
+
+      <View style={styles.bottomNav}>
+        <TopNavButtons />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  content: {
     flex: 1,
     padding: 20,
     marginTop: 30,
@@ -88,11 +97,19 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     marginTop: 20,
+    alignItems: "center",
   },
   checkoutText: {
     color: "white",
-    textAlign: "center",
     fontSize: 18,
+    fontWeight: "600",
+  },
+  bottomNav: {
+    paddingBottom: 10,
+    paddingTop: 5,
+    backgroundColor: "#f8f9fa",
+    borderTopWidth: 1,
+    borderTopColor: "#e0e0e0",
   },
 });
 

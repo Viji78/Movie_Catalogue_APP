@@ -1,4 +1,3 @@
-// --- API Response Structure ---
 export interface ApiVariant {
   variantId: string;
   name: string;
@@ -7,7 +6,7 @@ export interface ApiVariant {
   inventorySync: {
     sellingPrice?: number | null;
     mrp?: number | null;
-    created: number; // Unix timestamp
+    created: number;
     updated: number;
   };
 }
@@ -20,7 +19,7 @@ export interface ApiProduct {
   shortDescription: string;
   variants: ApiVariant[];
   imageUrls: string[] | null;
-  created: number; // Unix timestamp
+  created: number;
   inStock: boolean;
   // Add more fields if needed (e.g., tags, industryType)
 }
@@ -40,7 +39,6 @@ export interface ApiProductResponse {
    ApiProductResponseData;
 }
 
-// --- Simplified App Product Interface ---
 export interface Product {
   id: string;
   name: string;
@@ -48,7 +46,7 @@ export interface Product {
   price: number;
   image: string;
   barcode: string;
-  createdAt?: string; // ISO string
+  createdAt?: string;
 }
 
 export interface CartItem extends Product {
