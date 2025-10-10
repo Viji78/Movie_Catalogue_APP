@@ -2,7 +2,12 @@
   "expo": {
     "name": "MySmartBasket",
     "slug": "MySmartBasket",
-    "version": "1.0.0",
+    "description": "My Smart Basket",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -12,18 +17,41 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "ios": {
-      "supportsTablet": true
+    "updates": {
+      "enabled": true,
+      "fallbackToCacheTimeout": 30000,
+      "url": "https://u.expo.dev/6f30dc21-4056-40b1-9582-a3ab4093250b"
     },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.erelego.schoolapplication",
+      "buildNumber": "1.0.5"
+    },
+    "owner": "testingappviji",
     "android": {
+      "permissions": [
+        "CAMERA",
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_EXTERNAL_STORAGE"
+      ],
+      "package": "com.testingappviji.MySmartBasket",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "versionCode": 5
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6f30dc21-4056-40b1-9582-a3ab4093250b"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
