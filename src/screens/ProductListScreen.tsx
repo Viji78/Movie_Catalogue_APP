@@ -339,6 +339,7 @@ import CustomButton from '../components/CustomButton'; // ✅ import global butt
 const ProductListScreen = ({ navigation }: any) => {
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.products.products);
+  const cartItems = useSelector((state: RootState) => state.cart.items);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -353,15 +354,37 @@ const ProductListScreen = ({ navigation }: any) => {
     dispatch(addToCart({ ...product, quantity: 1 }));
   };
 
-  const renderItem = ({ item }: { item: Product }) => (
+  // const renderItem = ({ item }: { item: Product }) => (
+  //   <ProductCard
+  //     product={item}
+  //     onAddToCart={() => handleAddToCart(item)}
+  //     onViewDetails={() =>
+  //       navigation.navigate('ProductDetailScreen', { product: item })
+  //     }
+  //   />
+  // );
+  const renderItem = ({ item }: { item: Product }) => {
+  const inCart = cartItems.some((cartItem) => cartItem?.productId === item?.productId);
+
+  const handlePress = () => {
+    if (inCart) {
+      navigation.navigate('CartScreen'); // go to cart if already added
+    } else {
+      handleAddToCart(item); // add if not yet
+    }
+  };
+
+  return (
     <ProductCard
       product={item}
-      onAddToCart={() => handleAddToCart(item)}
+      onAddToCart={handlePress}
       onViewDetails={() =>
         navigation.navigate('ProductDetailScreen', { product: item })
       }
+      inCart={inCart} // ✅ pass it here
     />
   );
+};
 
   return (
     <View style={styles.container}>
@@ -375,13 +398,16 @@ const ProductListScreen = ({ navigation }: any) => {
           data={products}
           keyExtractor={(item) => item?.productId?.toString()}
           renderItem={renderItem}
+          numColumns={2} // ✅ 2 columns
+          columnWrapperStyle={styles.columnWrapper}
           contentContainerStyle={styles.list}
+          showsVerticalScrollIndicator={false}
         />
       )}
 
         {/* ✅ Example use of global button at bottom */}
       <CustomButton
-        title="Go to Cart"
+        title="Go to Cart List"
         type="secondary"
         onPress={() => navigation.navigate('CartScreen')}
       />
@@ -389,10 +415,40 @@ const ProductListScreen = ({ navigation }: any) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 10, marginTop: 30 },
-  header: { fontSize: 20, fontWeight: 'bold', marginBottom: 10 },
-  list: { paddingBottom: 20 },
+ const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+    marginTop: 30,
+    backgroundColor: '#f8f9fa', // optional: match background
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    marginLeft: 4,
+  },
+  list: {
+    paddingBottom: 20,
+  },
+  columnWrapper: {
+    justifyContent: 'space-between', // ensures equal spacing
+  },
+  card: {
+  width: '48%', // ✅ 2 per row
+  marginHorizontal: 0, // remove horizontal margin
+  marginBottom: 16,
+  padding: 12,
+  backgroundColor: '#fff',
+  borderRadius: 12,
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.1,
+  shadowRadius: 4,
+  elevation: 3,
+  position: 'relative',
+},
 });
+
 
 export default ProductListScreen;
