@@ -1,4 +1,3 @@
-// src/utils/productUtils.ts
 import { ApiProduct, Product } from '../types';
 
 export function mapApiProductToProduct(apiProduct: ApiProduct): Product {

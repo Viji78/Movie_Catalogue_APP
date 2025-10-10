@@ -24,7 +24,10 @@ const CartItem = ({ item, onRemove }: CartItemProps) => {
           Total: ${((item.price ?? 0) * item.quantity).toFixed(2)}
         </Text>
       </View>
-      <TouchableOpacity style={styles.removeButton} onPress={onRemove}>
+      {/* <TouchableOpacity style={styles.removeButton} onPress={onRemove}>
+        <Text style={styles.removeText}>✕</Text>
+      </TouchableOpacity> */}
+      <TouchableOpacity style={styles.removeButton} onPress={()=>alert("Remove Function nee to set")}>
         <Text style={styles.removeText}>✕</Text>
       </TouchableOpacity>
     </View>

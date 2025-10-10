@@ -1,9 +1,15 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { removeFromCart, clearCart } from '../store/cartSlice';
-import CartItem from '../components/CartItem';
-import CustomButton from '../components/CustomButton';
+import React from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFromCart, clearCart } from "../store/cartSlice";
+import CartItem from "../components/CartItem";
+import CustomButton from "../components/CustomButton";
 
 const CartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -18,10 +24,7 @@ const CartScreen = ({ navigation }) => {
   };
 
   const renderItem = ({ item }: { item: any }) => (
-    <CartItem
-      item={item}
-      onRemove={() => dispatch(removeFromCart(item.id))}
-    />
+    <CartItem item={item} onRemove={() => dispatch(removeFromCart(item.id))} />
   );
 
   return (
@@ -38,14 +41,19 @@ const CartScreen = ({ navigation }) => {
             contentContainerStyle={styles.list}
           />
           <Text style={styles.total}>Total: ${total?.toFixed(2)}</Text>
-          <TouchableOpacity style={styles.checkoutButton} onPress={handleCheckout}>
-            <Text style={styles.checkoutText}>Bye Now & Clear Cart</Text>
+          <TouchableOpacity
+            style={styles.checkoutButton}
+            onPress={handleCheckout}
+          >
+            <Text style={styles.checkoutText}>Buy Now & Clear Cart</Text>
           </TouchableOpacity>
         </>
       )}
-      <CustomButton title="Back to Shoping List" type="secondary" 
-      onPress={() => navigation.navigate('ProductListScreen')}
- />
+      <CustomButton
+        title="Back to Shoping List"
+        type="secondary"
+        onPress={() => navigation.navigate("ProductListScreen")}
+      />
     </View>
   );
 };
@@ -58,12 +66,12 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
   },
   empty: {
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 50,
   },
   list: {
@@ -71,19 +79,19 @@ const styles = StyleSheet.create({
   },
   total: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 20,
-    textAlign: 'right',
+    textAlign: "right",
   },
   checkoutButton: {
-    backgroundColor: '#486a05ff',
+    backgroundColor: "#486a05ff",
     padding: 15,
     borderRadius: 10,
     marginTop: 20,
   },
   checkoutText: {
-    color: 'white',
-    textAlign: 'center',
+    color: "white",
+    textAlign: "center",
     fontSize: 18,
   },
 });

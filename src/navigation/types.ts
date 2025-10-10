@@ -1,10 +1,3 @@
-// export type RootStackParamList = {
-//   LoginScreen: undefined;
-//   ProductListScreen: undefined;
-//   ProductDetailScreen: { product: Product }; // add this
-// };
-
-
 export type RootStackParamList = {
   LoginScreen: undefined;
   ProductListScreen: undefined;

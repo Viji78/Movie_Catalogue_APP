@@ -1,76 +1,3 @@
-// // import axios from 'axios';
-// // import { Product, ProductResponse } from '../types';
-
-// // const API_BASE_URL = 'https://catalog-management-system-dev-ak3logf6zea-uc.a.run.app/cms/filter/product';
-
-// // export const fetchProducts = async (): Promise<ProductResponse> => {
-// //   const response = await axios.post<ProductResponse>(API_BASE_URL, {
-// //     page: "1",
-// //     pageSize: "10",
-// //     sort: {
-// //       creationDateSortOption: "DESC"
-// //     }
-// //   });
-// //   return response.data;
-// // };
-
-// // export const getProductByBarcode = async (barcode: string): Promise<Product | null> => {
-// //   // Simulate barcode lookup — in real app, you’d call an endpoint
-// //   const products = await fetchProducts();
-// //   return products.data.find(p => p.barcode === barcode) || null;
-// // };
-
-
-
-// import axios from 'axios';
-// import { ProductResponse, Product } from '../types';
-
-// const API_BASE_URL = 'https://catalog-management-system-dev-ak3logf6zea-uc.a.run.app/cms/filter/product';
-
-// export const fetchProducts = async (): Promise<ProductResponse> => {
-//   const response = await axios.post<ProductResponse>(API_BASE_URL, {
-//     page: "1",
-//     pageSize: "20", // increase if needed
-//     sort: {
-//       creationDateSortOption: "DESC"
-//     }
-//   });
-//   return response.data;
-// };
-
-// // Helper: Get all variants with barcodes
-// export const getAllVariantsWithBarcodes = (products: Product[]) => {
-//   const variants: (Variant & { productId: string; productName: string })[] = [];
-//   products.forEach(product => {
-//     product.variants.forEach(variant => {
-//       if (variant.barcodes && variant.barcodes.length > 0 && variant.isActive) {
-//         variants.push({
-//           ...variant,
-//           productId: product.productId,
-//           productName: product.name,
-//         });
-//       }
-//     });
-//   });
-//   return variants;
-// };
-
-// // Lookup variant by barcode
-// export const getVariantByBarcode = async (barcode: string): Promise<CartItem | null> => {
-//   const response = await fetchProducts();
-//   const allVariants = getAllVariantsWithBarcodes(response.data);
-//   const found = allVariants.find(v => v.barcodes.includes(barcode));
-//   if (found) {
-//     return {
-//       ...found,
-//       quantity: 1,
-//     };
-//   }
-//   return null;
-// };
-
-
-
 
 
 // src/utils/api.ts
@@ -79,19 +6,6 @@ import axios from 'axios';
 import { Product, CartItem } from '../types';
 
 const API_BASE_URL = 'https://catalog-management-system-dev-ak3ogf6zea-uc.a.run.app/cms/product/v2/filter/product';
-
-// // Existing fetchProducts function
-// export const fetchProducts = async () => {
-//   const response = await axios.post(API_BASE_URL, {
-//     page: "1",
-//     pageSize: "20",
-//     sort: {
-//       creationDateSortOption: "DESC"
-//     }
-//   });
-//   console.log("✅ API raw response:", JSON.stringify(response.data, null, 2));
-//   return response.data;
-// };
 
 export const fetchProducts = async () => {
   const response = await axios.post(API_BASE_URL, {
