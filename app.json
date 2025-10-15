@@ -3,6 +3,8 @@
     "name": "MySmartBasket",
     "slug": "MySmartBasket",
     "description": "My Smart Basket",
+    "scheme": "mysmartbasket",
+
     "platforms": [
       "ios",
       "android"
@@ -24,8 +26,18 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.erelego.schoolapplication",
-      "buildNumber": "1.0.5"
+      "bundleIdentifier": "com.testingappviji.MySmartBasket",
+      "buildNumber": "1.0.5",
+        "googleServicesFile": "./GoogleService-Info.plist",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Camera access is required for Core Feature (eg: Gallery, Circular)",
+        "NSPhotoLibraryUsageDescription": "Photo library access is needed to upload existing images.",
+        "NSPhotoLibraryAddUsageDescription": "Photo library access is needed to save captured media.",
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIBackgroundModes": [
+          "remote-notification"
+        ]
+      }
     },
     "owner": "testingappviji",
     "android": {
@@ -35,6 +47,13 @@
         "READ_EXTERNAL_STORAGE"
       ],
       "package": "com.testingappviji.MySmartBasket",
+      "useNextNotificationsApi": true,
+      "googleServicesFile": "./google-services.json",
+      "config": {
+        "googleSignIn": {
+          "apiKey": "AIzaSyCYFqDpgcGYGbh4qLKbTbwStJfK-ri7jLE"
+        }
+      },
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
