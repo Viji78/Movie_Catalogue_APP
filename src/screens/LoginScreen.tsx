@@ -446,8 +446,12 @@ export default function LoginScreen({ navigation }: any) {
   const [signupPassword, setSignupPassword] = useState("");
   const [signupName, setSignupName] = useState("");
 
+  //  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+  //   clientId: "645456850045-a8f3ffe9fb6ja2kfbmjhso2vkg10uved.apps.googleusercontent.com",
+  // });
+
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    clientId: "645456850045-a8f3ffe9fb6ja2kfbmjhso2vkg10uved.apps.googleusercontent.com",
+    clientId: "645456850045-8jsvok65pmtr8i2frrgcce1f84jkk9ke.apps.googleusercontent.com",
   });
 
   // Handle Google authentication response

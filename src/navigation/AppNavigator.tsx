@@ -1,6 +1,14 @@
-// import React from "react";
-// import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+
+
+// import React, { useEffect, useState } from "react";
+// import { View, ActivityIndicator } from "react-native";
 // import { NavigationContainer } from "@react-navigation/native";
+// import { createNativeStackNavigator } from "@react-navigation/native-stack";
+// import { createDrawerNavigator } from "@react-navigation/drawer";
+// import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+// // Screens
 // import LoginScreen from "../screens/LoginScreen";
 // import ProductListScreen from "../screens/ProductListScreen";
 // import ProductDetailScreen from "../screens/ProductDetailScreen";
@@ -8,42 +16,91 @@
 // import BarcodeScannerScreen from "../screens/BarcodeScannerScreen";
 // import ProfileScreen from "../screens/ProfileScreen";
 // import SettingsScreen from "../screens/SettingsScreen";
-// import { View, Text } from "react-native";
 
-// import { RootStackParamList } from "./types";
+// const Stack = createNativeStackNavigator();
+// const Drawer = createDrawerNavigator();
 
-// const Stack = createNativeStackNavigator<RootStackParamList>();
-
-
-// function HomeScreen() {
+// function HomeStack() {
 //   return (
-//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-//       <Text>Welcome! 🎉</Text>
-//     </View>
+//     <Stack.Navigator>
+//       <Stack.Screen
+//         name="ProductListScreen"
+//         component={ProductListScreen}
+//         options={{ title: "Products" }}
+//       />
+//       <Stack.Screen
+//         name="ProductDetailScreen"
+//         component={ProductDetailScreen}
+//         options={{ title: "Product Details" }}
+//       />
+//       <Stack.Screen
+//         name="CartScreen"
+//         component={CartScreen}
+//         options={{ title: "My Cart" }}
+//       />
+//       <Stack.Screen
+//         name="BarcodeScannerScreen"
+//         component={BarcodeScannerScreen}
+//         options={{ title: "Scan Product" }}
+//       />
+//     </Stack.Navigator>
+//   );
+// }
+
+// // Drawer menu linking to modules
+// function AppDrawer() {
+//   return (
+//     <Drawer.Navigator
+//       screenOptions={{
+//         headerShown: true,
+//         drawerType: "front",
+//       }}
+//     >
+//       <Drawer.Screen name="Home" component={HomeStack} />
+//       <Drawer.Screen name="Profile" component={ProfileScreen} />
+//       <Drawer.Screen name="Settings" component={SettingsScreen} />
+//     </Drawer.Navigator>
 //   );
 // }
 
 // export default function AppNavigator() {
+//   const [user, setUser] = useState(null);
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     const auth = getAuth();
+//     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+//       setUser(currentUser);
+//       setLoading(false);
+//     });
+//     return () => unsubscribe();
+//   }, []);
+
+//   if (loading) {
+//     return (
+//       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+//         <ActivityIndicator size="large" color="#0000ff" />
+//       </View>
+//     );
+//   }
+
 //   return (
 //     <NavigationContainer>
-//       <Stack.Navigator
-//         initialRouteName="LoginScreen"
-//         screenOptions={{
-//           headerShown: false,
-//         }}
-//       >
-//         <Stack.Screen name="LoginScreen" component={LoginScreen} />
-//         <Stack.Screen name="Home" component={HomeScreen} />
-//         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
-//         <Stack.Screen name="ProductListScreen" component={ProductListScreen} />
-//         <Stack.Screen name="ProductDetailScreen" component={ProductDetailScreen} />
-//         <Stack.Screen name="CartScreen" component={CartScreen} />
-//         <Stack.Screen name="BarcodeScannerScreen" component={BarcodeScannerScreen} />
-//         <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
-//       </Stack.Navigator>
+//       {user ? (
+//         <AppDrawer /> // Show drawer if logged in
+//       ) : (
+//         <Stack.Navigator>
+//           <Stack.Screen
+//             name="LoginScreen"
+//             component={LoginScreen}
+//             options={{ headerShown: false }}
+//           />
+//         </Stack.Navigator>
+//       )}
 //     </NavigationContainer>
 //   );
 // }
+
 
 
 

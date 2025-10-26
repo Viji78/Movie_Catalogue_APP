@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCYFqDpgcGYGbh4qLKbTbwStJfK-ri7jLE",
+  apiKey: "AIzaSyC_g8QH15titL0v3eWeOApqbFgll_2KU0c",
   authDomain: "mysmartbasket.firebaseapp.com",
   projectId: "mysmartbasket",
   storageBucket: "mysmartbasket.appspot.com",
