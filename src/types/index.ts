@@ -1,61 +1,35 @@
-export interface ApiVariant {
-  variantId: string;
-  name: string;
-  description: string;
-  barcodes: string[];
-  inventorySync: {
-    sellingPrice?: number | null;
-    mrp?: number | null;
-    created: number;
-    updated: number;
-  };
-}
 
-export interface ApiProduct {
-  productId: string;
-  name: string;
+// Movie type from API
+export interface Movie {
+  id: number;
   title: string;
-  description: string;
-  shortDescription: string;
-  variants: ApiVariant[];
-  imageUrls: string[] | null;
-  created: number;
-  inStock: boolean;
-  // Add more fields if needed (e.g., tags, industryType)
+  posterURL: string;
+  imdbId: string;
 }
 
-export interface ApiProductResponseData {
-  totalRecords: number;
-  totalPages: number;
-  currentPage: number;
-  pageSize: number;
-  data: ApiProduct[];
+// Navigation types
+export type RootStackParamList = {
+  Login: undefined;
+  MovieList: undefined;
+  MovieDetailScreen: { movie: Movie };
+};
+
+export interface MovieListScreenProps {
+  onLogout: () => void;
 }
 
-export interface ApiProductResponse {
-  es: number;
-  message: string;
-  statusCode: number;
-   ApiProductResponseData;
+// Props for components
+export interface MovieCardProps {
+  movie: Movie;
+  onPress: () => void;
 }
 
-export interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  barcode: string;
-  createdAt?: string;
+export interface SearchBarProps {
+  value: string;
+  onChangeText: (text: string) => void;
+  onClear: () => void;
 }
 
-export interface CartItem extends Product {
-  quantity: number;
-}
 
-export interface ProductResponse {
-  data: Product[];
-  total: number;
-  page: number;
-  pageSize: number;
-}
+// API Response types
+export type MoviesResponse = Movie[];

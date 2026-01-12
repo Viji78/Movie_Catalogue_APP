@@ -3,10 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet, Platform } from "react-native
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 const buttons = [
-  { title: "Profile", route: "ProfileScreen" },
-  { title: "Product List", route: "ProductListScreen" },
-  { title: "Cart List", route: "CartScreen" },
-  { title: "Scan Product", route: "BarcodeScannerScreen" },
+  { title: "Movie List", route: "MovieListScreen" },
   { title: "Settings", route: "SettingsScreen" },
 ];
 

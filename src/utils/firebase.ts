@@ -3,12 +3,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC_g8QH15titL0v3eWeOApqbFgll_2KU0c",
-  authDomain: "mysmartbasket.firebaseapp.com",
-  projectId: "mysmartbasket",
-  storageBucket: "mysmartbasket.appspot.com",
-  messagingSenderId: "1234567890",
-  appId: "1:1234567890:web:abcdef123456",
+  apiKey: "AIzaSyDGCaUNApgR9fpvw2oRakhDtm505XuOU_8",
+  authDomain: "moviecatalogueapp-36dd0.firebaseapp.com",
+  projectId: "moviecatalogueapp-36dd0",
+  storageBucket: "moviecatalogueapp-36dd0.firebasestorage.app",
+  messagingSenderId: "617826500316",
+  appId: "1:617826500316:web:89b639e0d326fee7977e19",
 };
 
 const app = initializeApp(firebaseConfig);

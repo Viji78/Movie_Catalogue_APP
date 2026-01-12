@@ -1,34 +1,41 @@
 {
   "project_info": {
-    "project_number": "645456850045",
-    "project_id": "mysmartbasket-53a42",
-    "storage_bucket": "mysmartbasket-53a42.firebasestorage.app"
+    "project_number": "617826500316",
+    "project_id": "moviecatalogueapp-36dd0",
+    "storage_bucket": "moviecatalogueapp-36dd0.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:645456850045:android:01b4f4e1a8fb61eef0d514",
+        "mobilesdk_app_id": "1:617826500316:android:4478ea991247e431977e19",
         "android_client_info": {
-          "package_name": "com.testingappviji.MySmartBasket"
+          "package_name": "com.testingapp.moviecatalogueapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "645456850045-8jsvok65pmtr8i2frrgcce1f84jkk9ke.apps.googleusercontent.com",
+          "client_id": "617826500316-neh6iiv5dc3vqi26viv2ggtb9e5n90oc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC_g8QH15titL0v3eWeOApqbFgll_2KU0c"
+          "current_key": "AIzaSyC3DjhsR-1pW_-qOCq2m-77ZXaMjWAwy_M"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "645456850045-8jsvok65pmtr8i2frrgcce1f84jkk9ke.apps.googleusercontent.com",
+              "client_id": "617826500316-neh6iiv5dc3vqi26viv2ggtb9e5n90oc.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "617826500316-dahctjr69obiop1fhdiaf3oje0bj9pn5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.testingapp.moviecatalogueapp"
+              }
             }
           ]
         }

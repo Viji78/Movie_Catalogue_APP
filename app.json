@@ -1,15 +1,9 @@
 {
   "expo": {
-    "name": "MySmartBasket",
-    "slug": "MySmartBasket",
-    "description": "My Smart Basket",
-    "scheme": "mysmartbasket",
-
-    "platforms": [
-      "ios",
-      "android"
-    ],
-    "version": "1.0.5",
+    "name": "Movie Catalogue App",
+    "slug": "MovieCatalogueApp",
+    "scheme": "MovieCatalogueApp",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -19,58 +13,32 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "updates": {
-      "enabled": true,
-      "fallbackToCacheTimeout": 30000,
-      "url": "https://u.expo.dev/6f30dc21-4056-40b1-9582-a3ab4093250b"
-    },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.testingappviji.MySmartBasket",
-      "buildNumber": "1.0.5",
-        "googleServicesFile": "./GoogleService-Info.plist",
-      "infoPlist": {
-        "NSCameraUsageDescription": "Camera access is required for Core Feature (eg: Gallery, Circular)",
-        "NSPhotoLibraryUsageDescription": "Photo library access is needed to upload existing images.",
-        "NSPhotoLibraryAddUsageDescription": "Photo library access is needed to save captured media.",
-        "ITSAppUsesNonExemptEncryption": false,
-        "UIBackgroundModes": [
-          "remote-notification"
-        ]
-      }
+      "bundleIdentifier": "com.testingapp.moviecatalogueapp"
     },
-    "owner": "testingappviji",
     "android": {
-      "permissions": [
-        "CAMERA",
-        "WRITE_EXTERNAL_STORAGE",
-        "READ_EXTERNAL_STORAGE"
-      ],
-      "package": "com.testingappviji.MySmartBasket",
-      "useNextNotificationsApi": true,
-      "googleServicesFile": "./google-services.json",
-      "config": {
-        "googleSignIn": {
-          "apiKey": "AIzaSyCYFqDpgcGYGbh4qLKbTbwStJfK-ri7jLE"
-        }
-      },
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "versionCode": 5
+      "predictiveBackGestureEnabled": false,
+      "package": "com.testingapp.moviecatalogueapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "6f30dc21-4056-40b1-9582-a3ab4093250b"
+        "projectId": "81c0c2e0-c7a6-4612-93d3-7b5985c538bf"
       }
     },
     "runtimeVersion": {
       "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/81c0c2e0-c7a6-4612-93d3-7b5985c538bf"
     }
   }
 }

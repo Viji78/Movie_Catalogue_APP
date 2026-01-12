@@ -1,438 +1,25 @@
-// import React, { useState } from 'react';
-// import { View, Text, TextInput, Button, StyleSheet, Alert, Image } from 'react-native';
-// import { NativeStackScreenProps } from '@react-navigation/native-stack';
-// import { RootStackParamList } from '../navigation/types';
-
-// type Props = NativeStackScreenProps<RootStackParamList, 'LoginScreen'>;
-
-// export default function LoginScreen({ navigation }: Props) {
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-
-//   const handleLogin = () => {
-//     if (email === 'test@example.com' && password === '123456') {
-//       navigation.replace('ProfileScreen');
-//     } else {
-//       Alert.alert('Error', 'Invalid credentials');
-//     }
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//          <View style={styles.avatarContainer}>
-//         <Image
-//           source={{
-//             uri: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
-//           }}
-//           style={styles.avatar}
-//         />
-//       </View>
-//       <Text style={styles.title}>Login</Text>
-//       <TextInput
-//         placeholder="Email"
-//         value={email}
-//         onChangeText={setEmail}
-//         style={styles.input}
-//       />
-//       <TextInput
-//         placeholder="Password"
-//         value={password}
-//         onChangeText={setPassword}
-//         secureTextEntry
-//         style={styles.input}
-//       />
-//       <Button title="Login" onPress={handleLogin} />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: { flex: 1, justifyContent: 'center', padding: 20 },
-//   title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' },
-//   input: { borderWidth: 1, borderColor: '#ccc', padding: 10, marginBottom: 15, borderRadius: 5 },
-//   avatar: { width: 120, height: 120, borderRadius: 60, marginBottom: 20},
-//   avatarContainer: { alignItems: 'center'},
-// });
-
-
-
-
-
-// import React, { useEffect } from "react";
-// import { View, Text, StyleSheet, Alert } from "react-native";
-// import * as AuthSession from "expo-auth-session";
-// import GoogleButton from "../components/GoogleButton";
-// import { NativeStackScreenProps } from "@react-navigation/native-stack";
-
-// type RootStackParamList = {
-//   Login: undefined;
-//   Home: undefined;
-// };
-
-// type Props = NativeStackScreenProps<RootStackParamList, "Login">;
-
-// const CLIENT_ID = "YOUR_WEB_CLIENT_ID.apps.googleusercontent.com";
-
-// export default function LoginScreen({ navigation }: Props) {
-//   const redirectUri = AuthSession.makeRedirectUri();
-
-//   const [request, response, promptAsync] = AuthSession.useAuthRequest(
-//     {
-//       clientId: CLIENT_ID,
-//       redirectUri,
-//       scopes: ["profile", "email"],
-//       responseType: "token",
-//     },
-//     { authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth" }
-//   );
-
-//   useEffect(() => {
-//     if (response?.type === "success") {
-//       const accessToken = response.params.access_token;
-//       fetchUserInfo(accessToken);
-//     }
-//   }, [response]);
-
-//   async function fetchUserInfo(token: string) {
-//     try {
-//       const res = await fetch("https://www.googleapis.com/userinfo/v2/me", {
-//         headers: { Authorization: `Bearer ${token}` },
-//       });
-//       const user = await res.json();
-//       Alert.alert("Welcome", `Hello ${user.name}`);
-//       navigation.navigate("Home");
-//     } catch (err) {
-//       Alert.alert("Error", "Failed to get user info");
-//     }
-//   }
-
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>Login</Text>
-//       <GoogleButton onPress={() => promptAsync()} />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//     backgroundColor: "#f2f2f2",
-//   },
-//   title: {
-//     fontSize: 28,
-//     fontWeight: "600",
-//     marginBottom: 20,
-//   },
-// });
-
-
-
-
-
-// import React, { useEffect } from "react";
-// import { View, Text, StyleSheet, Alert } from "react-native";
-// import * as Google from "expo-auth-session/providers/google";
-// import { auth, provider } from "../utils/firebase";
-
-// import { signInWithCredential, GoogleAuthProvider } from "firebase/auth";
-// import GoogleButton from "../components/GoogleButton";
-
-// export default function LoginScreen({ navigation }: any) {
-//   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-//     clientId: "645456850045-a8f3ffe9fb6ja2kfbmjhso2vkg10uved.apps.googleusercontent.com", // <-- paste from Firebase
-//   });
-
-//   useEffect(() => {
-//     if (response?.type === "success") {
-//       const { id_token } = response.params;
-//       const credential = GoogleAuthProvider.credential(id_token);
-//       signInWithCredential(auth, credential)
-//         .then((userCredential) => {
-//           const user = userCredential.user;
-//           Alert.alert("Welcome", `Hello ${user.displayName}`);
-//           navigation.navigate("Home");
-//         })
-//         .catch((error) => {
-//           Alert.alert("Error", error.message);
-//         });
-//     }
-//   }, [response]);
-
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>Login</Text>
-//       <GoogleButton onPress={() => promptAsync()} disabled={!request} />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: { flex: 1, justifyContent: "center", alignItems: "center" },
-//   title: { fontSize: 28, fontWeight: "600", marginBottom: 20 },
-// });
-
-
-
-
-
-
-
-// import React, { useState, useEffect } from "react";
-// import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
-// import * as Google from "expo-auth-session/providers/google";
-// import { auth } from "../utils/firebase"; // Your Firebase configuration
-// import { signInWithEmailAndPassword, signInWithCredential, GoogleAuthProvider } from "firebase/auth";
-// import { createUserWithEmailAndPassword } from "firebase/auth"; // Add this line
-
-// import GoogleButton from "../components/GoogleButton"; // Custom Google sign-in button component
-
-// export default function LoginScreen({ navigation }: any) {
-//   const [email, setEmail] = useState(""); // State for email input
-//   const [password, setPassword] = useState(""); // State for password input
-
-//   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-//     clientId: "645456850045-a8f3ffe9fb6ja2kfbmjhso2vkg10uved.apps.googleusercontent.com", // <-- paste from Firebase
-//   });
-
-//   // Handle Google authentication response
-//   useEffect(() => {
-//     if (response?.type === "success") {
-//       const { id_token } = response.params;
-//       const credential = GoogleAuthProvider.credential(id_token);
-
-//       // Sign in with Firebase using the Google credential
-//       signInWithCredential(auth, credential)
-//         .then((userCredential) => {
-//           const user = userCredential.user;
-//           Alert.alert("Welcome", `Hello ${user.displayName}`);
-//           navigation.navigate("Home"); // Navigate to home after login
-//         })
-//         .catch((error) => {
-//           Alert.alert("Error", error.message);
-//         });
-//     }
-//   }, [response]);
-
-//   // Handle Email/Password login
-//   const handleEmailLogin = () => {
-//     signInWithEmailAndPassword(auth, email, password)
-//       .then((userCredential) => {
-//         const user = userCredential.user;
-//         Alert.alert("Welcome", `Hello ${user.displayName}`);
-//         navigation.navigate("Home"); // Navigate to home after login
-//       })
-//       .catch((error) => {
-//         Alert.alert("Login Error", error.message);
-//       });
-//   };
-
-//   // Handle Email/Password signup
-//   const handleEmailSignup = () => {
-//     createUserWithEmailAndPassword(auth, email, password)
-//       .then((userCredential) => {
-//         const user = userCredential.user;
-//         Alert.alert("Account Created", `Welcome ${user.displayName}`);
-//         navigation.navigate("Home"); // Navigate to home after signup
-//       })
-//       .catch((error) => {
-//         Alert.alert("Signup Error", error.message);
-//       });
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>Login / Sign Up</Text>
-
-//       {/* Email and Password Login Form */}
-//       <TextInput
-//         style={styles.input}
-//         placeholder="Email"
-//         value={email}
-//         onChangeText={setEmail}
-//         keyboardType="email-address"
-//       />
-//       <TextInput
-//         style={styles.input}
-//         placeholder="Password"
-//         value={password}
-//         onChangeText={setPassword}
-//         secureTextEntry
-//       />
-//       <Button title="Log In" onPress={handleEmailLogin} />
-//       <Button title="Sign Up" onPress={handleEmailSignup} color="green" />
-
-//       {/* Google Sign-In Button */}
-//       <GoogleButton onPress={() => promptAsync()} disabled={!request} />
-
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: { flex: 1, justifyContent: "center", alignItems: "center", padding: 20 },
-//   title: { fontSize: 28, fontWeight: "600", marginBottom: 20 },
-//   input: { 
-//     width: "100%", 
-//     height: 40, 
-//     borderColor: "#ccc", 
-//     borderWidth: 1, 
-//     marginBottom: 10, 
-//     paddingLeft: 10 
-//   },
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useState, useEffect } from "react";
-// import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
-// import * as Google from "expo-auth-session/providers/google";
-// import { auth } from "../utils/firebase"; // Your Firebase configuration
-// import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithCredential, GoogleAuthProvider } from "firebase/auth"; // Firebase Auth functions
-
-// import GoogleButton from "../components/GoogleButton"; // Custom Google button component
-
-// export default function LoginScreen({ navigation }: any) {
-//   const [email, setEmail] = useState(""); // State for email input
-//   const [password, setPassword] = useState(""); // State for password input
-
-//   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-//     clientId: "645456850045-a8f3ffe9fb6ja2kfbmjhso2vkg10uved.apps.googleusercontent.com", // <-- paste from Firebase
-//   });
-
-//   // Handle Google authentication response
-//   useEffect(() => {
-//     if (response?.type === "success") {
-//       const { id_token } = response.params;
-//       const credential = GoogleAuthProvider.credential(id_token);
-
-//       // Sign in with Firebase using the Google credential
-//       signInWithCredential(auth, credential)
-//         .then((userCredential) => {
-//           const user = userCredential.user;
-//           Alert.alert("Welcome", `Hello ${user.displayName}`);
-//           navigation.navigate("ProfileScreen"); // Navigate to home after login
-//         })
-//         .catch((error) => {
-//           Alert.alert("Error", error.message);
-//         });
-//     }
-//   }, [response]);
-
-//   // Handle Email/Password login
-//   const handleEmailLogin = () => {
-//     signInWithEmailAndPassword(auth, email, password)
-//       .then((userCredential) => {
-//         const user = userCredential.user;
-//         Alert.alert("Welcome", `Hello ${user.displayName}`);
-//         navigation.navigate("ProfileScreen"); // Navigate to home after login
-//       })
-//       .catch((error) => {
-//         Alert.alert("Login Error", error.message);
-//       });
-//   };
-
-//   // Handle Email/Password signup
-//   const handleEmailSignup = () => {
-//     createUserWithEmailAndPassword(auth, email, password)
-//       .then((userCredential) => {
-//         const user = userCredential.user;
-//         Alert.alert("Account Created", `Welcome ${user.displayName}`);
-//         navigation.navigate("ProfileScreen"); // Navigate to home after signup
-//       })
-//       .catch((error) => {
-//         Alert.alert("Signup Error", error.message);
-//       });
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>Login / Sign Up</Text>
-
-//       {/* Email and Password Login Form */}
-//       <TextInput
-//         style={styles.input}
-//         placeholder="Email"
-//         value={email}
-//         onChangeText={setEmail}
-//         keyboardType="email-address"
-//       />
-//       <TextInput
-//         style={styles.input}
-//         placeholder="Password"
-//         value={password}
-//         onChangeText={setPassword}
-//         secureTextEntry
-//       />
-//       <Button title="Log In" onPress={handleEmailLogin} />
-//       <Button title="Sign Up" onPress={handleEmailSignup} color="green" />
-
-//       {/* Google Sign-In Button */}
-//       <GoogleButton onPress={() => promptAsync()} disabled={!request} />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: { flex: 1, justifyContent: "center", alignItems: "center", padding: 20 },
-//   title: { fontSize: 28, fontWeight: "600", marginBottom: 20 },
-//   input: { 
-//     width: "100%", 
-//     height: 40, 
-//     borderColor: "#ccc", 
-//     borderWidth: 1, 
-//     marginBottom: 10, 
-//     paddingLeft: 10 
-//   },
-// });
-
-
-
-
-
-
-
-
-
-
 import React, { useState, useEffect } from "react";
-import { 
-  View, 
-  Text, 
-  TextInput, 
-  Button, 
-  StyleSheet, 
-  Alert, 
-  TouchableOpacity, 
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
   Image,
   Modal,
-  ActivityIndicator 
+  ActivityIndicator,
 } from "react-native";
 import * as Google from "expo-auth-session/providers/google";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { auth } from "../utils/firebase";
-import { 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
-  signInWithCredential, 
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signInWithCredential,
   GoogleAuthProvider,
   sendPasswordResetEmail,
-  updateProfile
+  updateProfile,
 } from "firebase/auth";
 
 export default function LoginScreen({ navigation }: any) {
@@ -440,18 +27,16 @@ export default function LoginScreen({ navigation }: any) {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
-  
+  const [showPassword, setShowPassword] = useState(false);
+
   // Signup form states
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
   const [signupName, setSignupName] = useState("");
 
-  //  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-  //   clientId: "645456850045-a8f3ffe9fb6ja2kfbmjhso2vkg10uved.apps.googleusercontent.com",
-  // });
-
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    clientId: "645456850045-8jsvok65pmtr8i2frrgcce1f84jkk9ke.apps.googleusercontent.com",
+    clientId:
+      "340770466494-93rc0ar2qv59dqism2hdlngn2vimq29e.apps.googleusercontent.com",
   });
 
   // Handle Google authentication response
@@ -464,9 +49,10 @@ export default function LoginScreen({ navigation }: any) {
       signInWithCredential(auth, credential)
         .then((userCredential) => {
           const user = userCredential.user;
-          const finalName = user.displayName || user.email?.split('@')[0] || 'User';
+          const finalName =
+            user.displayName || user.email?.split("@")[0] || "User";
           Alert.alert("Welcome", `Hello ${finalName}`);
-          navigation.navigate("ProfileScreen");
+          navigation.navigate("MovieListScreen");
         })
         .catch((error) => {
           Alert.alert("Error", error.message);
@@ -481,16 +67,20 @@ export default function LoginScreen({ navigation }: any) {
       Alert.alert("Validation Error", "Please fill in all fields");
       return;
     }
-    
+
     setIsLoading(true);
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
-      const finalName = user.displayName || user.email?.split('@')[0] || 'User';
-      Alert.alert("Welcome", `Hello ${finalName}`);
-      navigation.navigate("ProfileScreen");
+      const finalName = user.displayName || user.email?.split("@")[0] || "User";
+      Alert.alert("Welcome Back", ` ${finalName}`);
+      navigation.navigate("MovieListScreen");
     } catch (error: any) {
-      Alert.alert("Login Error", error.message);
+      Alert.alert("Login Error", "Invalid Credentials");
     } finally {
       setIsLoading(false);
     }
@@ -503,30 +93,46 @@ export default function LoginScreen({ navigation }: any) {
       Alert.alert("Validation Error", "Please fill in all fields");
       return;
     }
-    
-    if (signupPassword.length < 6) {
-      Alert.alert("Validation Error", "Password must be at least 6 characters");
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(signupEmail)) {
+      Alert.alert("Validation Error", "Please enter a valid email address");
       return;
     }
-    
+
+    // Password rules:
+    // - Min 4 characters At least 1 number  At least 1 special character
+    const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{4,}$/;
+
+    if (!passwordRegex.test(signupPassword)) {
+      Alert.alert(
+        "Validation Error",
+        "Password must be at least 4 characters and include one number and one special character"
+      );
+      return;
+    }
+
     setIsLoading(true);
     try {
       // Create user account
-      const userCredential = await createUserWithEmailAndPassword(auth, signupEmail, signupPassword);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        signupEmail,
+        signupPassword
+      );
       const user = userCredential.user;
-      
-      // Update profile with display name
       await updateProfile(user, { displayName: signupName.trim() });
-      
-      // Close modal and show success
+
       setShowSignupModal(false);
-      Alert.alert("Account Created", `Welcome ${signupName}! Please log in with your credentials.`);
-      
-      // Clear signup form
+      Alert.alert(
+        "Account Created",
+        `Welcome ${signupName}! Please log in with your credentials.`
+      );
+
       setSignupEmail("");
       setSignupPassword("");
       setSignupName("");
-      
+
       // Pre-fill login form with new email
       setEmail(signupEmail);
       setPassword("");
@@ -548,7 +154,7 @@ export default function LoginScreen({ navigation }: any) {
     try {
       await sendPasswordResetEmail(auth, email);
       Alert.alert(
-        "Password Reset Sent", 
+        "Password Reset Sent",
         "Check your email for a password reset link",
         [{ text: "OK" }]
       );
@@ -576,33 +182,47 @@ export default function LoginScreen({ navigation }: any) {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-          autoCapitalize="none"
-        />
-        
+
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.passwordInput}
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={!showPassword}
+            autoCapitalize="none"
+          />
+
+          <TouchableOpacity
+            onPress={() => setShowPassword(!showPassword)}
+            style={{ paddingHorizontal: 12 }}
+          >
+            <MaterialCommunityIcons
+              name={showPassword ? "eye-outline" : "eye-off-outline"}
+              size={22}
+              color="#666"
+            />
+          </TouchableOpacity>
+        </View>
+
         <TouchableOpacity onPress={handlePasswordReset} disabled={isLoading}>
           <Text style={styles.forgotPassword}>Forgot Password?</Text>
         </TouchableOpacity>
-        
-        <TouchableOpacity 
-          style={[styles.button, styles.loginButton]} 
+
+        <TouchableOpacity
+          style={[styles.button, styles.loginButton]}
           onPress={handleEmailLogin}
           disabled={isLoading}
         >
           <Text style={styles.buttonText}>Log In</Text>
         </TouchableOpacity>
-        
-        <TouchableOpacity 
-          style={[styles.button, styles.signupButton]} 
+
+        <TouchableOpacity
+          style={[styles.button, styles.signupButton]}
           onPress={() => setShowSignupModal(true)}
           disabled={isLoading}
         >
-          <Text style={[styles.buttonText, { color: '#fff' }]}>Sign Up</Text>
+          <Text style={[styles.buttonText, { color: "#fff" }]}>Sign Up</Text>
         </TouchableOpacity>
       </View>
 
@@ -616,8 +236,10 @@ export default function LoginScreen({ navigation }: any) {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContainer}>
             <Text style={styles.modalTitle}>Create Account</Text>
-            <Text style={styles.modalSubtitle}>Fill in your details to get started</Text>
-            
+            <Text style={styles.modalSubtitle}>
+              Fill in your details to get started
+            </Text>
+
             <TextInput
               style={styles.modalInput}
               placeholder="Full Name"
@@ -626,7 +248,7 @@ export default function LoginScreen({ navigation }: any) {
               autoCapitalize="words"
               autoFocus={true}
             />
-            
+
             <TextInput
               style={styles.modalInput}
               placeholder="Email address"
@@ -636,7 +258,7 @@ export default function LoginScreen({ navigation }: any) {
               autoCapitalize="none"
               autoCorrect={false}
             />
-            
+
             <TextInput
               style={styles.modalInput}
               placeholder="Password"
@@ -645,9 +267,9 @@ export default function LoginScreen({ navigation }: any) {
               secureTextEntry
               autoCapitalize="none"
             />
-            
-            <TouchableOpacity 
-              style={[styles.button, styles.modalButton]} 
+
+            <TouchableOpacity
+              style={[styles.button, styles.modalButton]}
               onPress={handleSignupSubmit}
               disabled={isLoading}
             >
@@ -657,8 +279,8 @@ export default function LoginScreen({ navigation }: any) {
                 <Text style={styles.buttonText}>Create Account</Text>
               )}
             </TouchableOpacity>
-            
-            <TouchableOpacity 
+
+            <TouchableOpacity
               onPress={() => setShowSignupModal(false)}
               disabled={isLoading}
             >
@@ -668,25 +290,25 @@ export default function LoginScreen({ navigation }: any) {
         </View>
       </Modal>
 
-
-       <View style={styles.dividerContainer}>
+      <View style={styles.dividerContainer}>
         <View style={styles.dividerLine} />
         <Text style={styles.dividerText}>or continue with</Text>
         <View style={styles.dividerLine} />
       </View>
 
-      <TouchableOpacity 
-        style={styles.googleButton} 
-        onPress={() => promptAsync()} 
+      <TouchableOpacity
+        style={styles.googleButton}
+        onPress={() => promptAsync()}
         disabled={!request || isLoading}
       >
         <Image
-          source={{ uri: 'https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/google-512.png' }}
+          source={{
+            uri: "https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/google-512.png",
+          }}
           style={styles.googleIcon}
         />
         <Text style={styles.googleButtonText}>Sign in with Google</Text>
       </TouchableOpacity>
-
 
       {isLoading && !showSignupModal && (
         <View style={styles.loadingOverlay}>
@@ -699,159 +321,174 @@ export default function LoginScreen({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    justifyContent: "center", 
-    alignItems: "center", 
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
-    backgroundColor: '#f8f9fa'
+    backgroundColor: "#f8f9fa",
   },
   header: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 30,
   },
-  title: { 
-    fontSize: 28, 
-    fontWeight: "700", 
-    color: '#2c3e50',
-    marginBottom: 8
+  title: {
+    fontSize: 28,
+    fontWeight: "700",
+    color: "#2c3e50",
+    marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: '#7f8c8d',
+    color: "#7f8c8d",
   },
   formContainer: {
-    width: '100%',
+    width: "100%",
     maxWidth: 400,
   },
-  input: { 
-    width: "100%", 
-    height: 50, 
-    borderColor: "#e0e0e0", 
-    borderWidth: 1, 
+  input: {
+    width: "100%",
+    height: 50,
+    borderColor: "#e0e0e0",
+    borderWidth: 1,
     borderRadius: 8,
-    marginBottom: 15, 
+    marginBottom: 15,
     paddingLeft: 16,
     fontSize: 16,
-    backgroundColor: '#fff'
+    backgroundColor: "#fff",
+  },
+  passwordContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#e0e0e0",
+    borderRadius: 8,
+    marginBottom: 15,
+    backgroundColor: "#fff",
+  },
+  passwordInput: {
+    flex: 1,
+    height: 50,
+    paddingLeft: 16,
+    fontSize: 16,
   },
   forgotPassword: {
-    alignSelf: 'flex-end',
-    color: '#3498db',
+    alignSelf: "flex-end",
+    color: "#3498db",
     marginBottom: 15,
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   button: {
-    width: '100%',
+    width: "100%",
     height: 50,
     borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 12,
   },
   loginButton: {
-    backgroundColor: '#3498db',
+    backgroundColor: "#3498db",
   },
   signupButton: {
-    backgroundColor: '#2ecc71',
+    backgroundColor: "#2ecc71",
   },
   modalButton: {
-    backgroundColor: '#9b59b6',
+    backgroundColor: "#9b59b6",
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   loadingOverlay: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.3)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(0,0,0,0.3)",
+    justifyContent: "center",
+    alignItems: "center",
   },
   loadingText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
     marginTop: 10,
   },
   // Modal Styles
   modalOverlay: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   modalContainer: {
-    width: '85%',
+    width: "85%",
     maxWidth: 400,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 16,
     padding: 24,
-    alignItems: 'center',
+    alignItems: "center",
   },
   modalTitle: {
     fontSize: 22,
-    fontWeight: '700',
-    color: '#2c3e50',
+    fontWeight: "700",
+    color: "#2c3e50",
     marginBottom: 8,
   },
   modalSubtitle: {
     fontSize: 16,
-    color: '#7f8c8d',
+    color: "#7f8c8d",
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
   modalInput: {
-    width: '100%',
+    width: "100%",
     height: 50,
-    borderColor: '#e0e0e0',
+    borderColor: "#e0e0e0",
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 16,
     fontSize: 16,
     marginBottom: 16,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   cancelText: {
-    color: '#7f8c8d',
-    fontSize: 14,
+    color: "#656868",
+    fontSize: 18,
     marginTop: 12,
-    textDecorationLine: 'underline',
+    textDecorationLine: "underline",
   },
-    dividerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  dividerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     marginVertical: 20,
-    width: '100%',
+    width: "100%",
     maxWidth: 400,
   },
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: "#e0e0e0",
   },
   dividerText: {
     marginHorizontal: 12,
-    color: '#7f8c8d',
+    color: "#7f8c8d",
     fontSize: 14,
   },
   googleButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
     maxWidth: 400,
     height: 50,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: "#e0e0e0",
     borderRadius: 8,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   googleIcon: {
     width: 24,
@@ -860,7 +497,7 @@ const styles = StyleSheet.create({
   },
   googleButtonText: {
     fontSize: 16,
-    color: '#2c3e50',
-    fontWeight: '500',
+    color: "#2c3e50",
+    fontWeight: "500",
   },
 });
